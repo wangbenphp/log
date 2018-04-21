@@ -135,12 +135,14 @@ class LogHandle
 
     	} catch (\Exception $e) {
 
-    		print_r([
+    		$error_info = ([
 				'code' => $e->getCode(),
                 'msg'  => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
 			]);
+
+            self::info($error_info);
 
 			return false;
     	}
