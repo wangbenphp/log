@@ -152,6 +152,11 @@ class LogHandle
     public static function fatalError()
     {
     	$error   = error_get_last();
+
+        if (!$error) {
+            return false;
+        }
+        
     	$message = [
     		'errorNo'      => $error['type'],
     		'errorFile'    => $error['file'],
