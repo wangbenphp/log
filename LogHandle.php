@@ -59,24 +59,23 @@ class LogHandle
     private static function template($message, $describe = 'info')
     {
     	$content  = '';
-    	$server   = $_SERVER;
     	$header   = [
-    		'host'                      => $server['HTTP_HOST'],
-    		'port'                      => $server['SERVER_PORT'],
-    		'connection'                => $server['HTTP_CONNECTION'],
-    		'upgrade-insecure-requests' => $server['HTTP_UPGRADE_INSECURE_REQUESTS'],
-    		'user-agent'                => $server['HTTP_USER_AGENT'],
-    		'accept'                    => $server['HTTP_ACCEPT'],
-    		'accept-encoding'           => $server['HTTP_ACCEPT_ENCODING'],
-    		'accept-language'           => $server['HTTP_ACCEPT_LANGUAGE'],
-    		'software'                  => $server['SERVER_SOFTWARE'],
-    		'root'                      => $server['DOCUMENT_ROOT'],
-    		'scheme'                    => $server['REQUEST_SCHEME'],
-    		'admin'                     => $server['SERVER_ADMIN'],
-    		'filename'                  => $server['SCRIPT_FILENAME'],
+    		'host'                      => $_SERVER['HTTP_HOST'],
+    		'port'                      => $_SERVER['SERVER_PORT'],
+    		'connection'                => $_SERVER['HTTP_CONNECTION'],
+    		'upgrade-insecure-requests' => $_SERVER['HTTP_UPGRADE_INSECURE_REQUESTS'],
+    		'user-agent'                => $_SERVER['HTTP_USER_AGENT'],
+    		'accept'                    => $_SERVER['HTTP_ACCEPT'],
+    		'accept-encoding'           => $_SERVER['HTTP_ACCEPT_ENCODING'],
+    		'accept-language'           => $_SERVER['HTTP_ACCEPT_LANGUAGE'],
+    		'software'                  => $_SERVER['SERVER_SOFTWARE'],
+    		'root'                      => $_SERVER['DOCUMENT_ROOT'],
+    		'scheme'                    => $_SERVER['REQUEST_SCHEME'],
+    		'admin'                     => $_SERVER['SERVER_ADMIN'],
+    		'filename'                  => $_SERVER['SCRIPT_FILENAME'],
     	];
 
-		$content .= '['. date('Y-m-d H:i:s') .'] ' . $server['SERVER_ADDR'] . ' ' . $server['REQUEST_METHOD'] . ' ' . $server['REQUEST_URI'] . "\r\n";
+		$content .= '['. date('Y-m-d H:i:s') .'] ' . $_SERVER['SERVER_ADDR'] . ' ' . $_SERVER['REQUEST_METHOD'] . ' ' . $_SERVER['REQUEST_URI'] . "\r\n";
     	$content .= '[header] ' . print_r($header, 1);
 
     	if ($_REQUEST) {
@@ -85,7 +84,9 @@ class LogHandle
 
     	$content .= '[' . $describe . '] ' . $message . "\r\n";
     	$content .= '---------------------------------------------------------------' . "\r\n\r\n";
-
+        
+        unset($message);
+        unset($header);
     	return $content;
     }
 
